@@ -176,10 +176,11 @@ async function updateDashboard() {
   // Determine target month (default: previous completed month)
   const now    = new Date();
   let tYear    = parseInt(process.env.TARGET_YEAR  || now.getFullYear());
-  let tMonth   = parseInt(process.env.TARGET_MONTH || (() => {
-    // Switch to current month after the 3rd (data typically settles by then)
-    return now.getDate() <= 3 ? now.getMonth() : now.getMonth() + 1;
-  })());
+  // getMonth() is 0-indexed (April = 3), so using it directly as a 1-indexed
+  // month number gives the PREVIOUS month (April → 3 = March). That's what we want:
+  // always show the last fully-completed month.
+  // Edge case: if we're in January (getMonth()=0), fall back to December of last year.
+  let tMonth   = parseInt(process.env.TARGET_MONTH || now.getMonth());
   if (tMonth < 1)  { tMonth = 12; tYear--; }
   if (tMonth > 12) { tMonth = 1;  tYear++; }
   const range = monthRange(tYear, tMonth);
