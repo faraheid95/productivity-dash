@@ -89,9 +89,12 @@ function adoPost(path, body) {
     { 'Authorization': 'Basic ' + token, 'Accept': 'application/json' }, body);
 }
 
-// ── ISO duration → decimal hours ────────────────────────────────────────────
+// ── Duration → decimal hours ─────────────────────────────────────────────────
+// Clockify Reports API returns duration as seconds (number).
+// Regular API returns ISO 8601 strings like "PT1H30M". Handle both.
 function parseDuration(iso) {
   if (!iso) return 0;
+  if (typeof iso === 'number') return iso / 3600;  // already in seconds
   const m = iso.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?/);
   if (!m) return 0;
   return (+(m[1] || 0)) + (+(m[2] || 0)) / 60 + (+(m[3] || 0)) / 3600;
