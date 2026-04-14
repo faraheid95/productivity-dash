@@ -139,6 +139,11 @@ tr:hover td{background:#fafbff;cursor:pointer}
 .vac-inp{width:42px;padding:3px 5px;border:1px solid var(--border);border-radius:6px;font-size:.72rem;text-align:center;outline:none;background:var(--bg)}
 .vac-inp:focus{border-color:var(--accent)}
 .vac-adj{font-size:.7rem;color:var(--muted)}
+/* ── Date range filter ───────────────────────────────────── */
+.date-filter-wrap{display:flex;align-items:center;gap:6px}
+.date-inp{font-size:.72rem;padding:4px 8px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--text);outline:none;cursor:pointer;font-family:inherit}
+.date-inp:focus,.date-inp:hover{border-color:var(--accent)}
+.date-arrow{font-size:.7rem;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -180,6 +185,14 @@ tr:hover td{background:#fafbff;cursor:pointer}
       <div id="mselItems"></div>
     </div>
   </div>
+  <div class="fbar-sep"></div>
+  <!-- Date range filter -->
+  <span class="fbar-label">Date</span>
+  <div class="date-filter-wrap">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-03-31" onchange="setDateFilter()">
+    <span class="date-arrow">→</span>
+    <input type="date" class="date-inp" id="dateTo" value="2026-03-31" min="2026-03-01" max="2026-03-31" onchange="setDateFilter()">
+  </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
   <button class="fchip" id="clearFilters" onclick="clearAllFilters()" style="display:none;background:#fee2e2;color:#991b1b">✕ Clear</button>
@@ -188,10 +201,10 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <!-- ══════════════════════ OVERVIEW ══════════════════════ -->
 <div id="tc-ov" class="tc on"><div class="main">
   <div class="krow">
-    <div class="kpi"><div class="kl">Total Hours</div><div class="kv">1,568</div><div class="ks">24 team members</div></div>
-    <div class="kpi kdev"><div class="kl">Dev Hours</div><div class="kv">1,314</div><div class="ks">Non-meeting work</div></div>
-    <div class="kpi kmtg"><div class="kl">Meeting Hours</div><div class="kv">254</div><div class="ks">Stand-ups, syncs, demos</div></div>
-    <div class="kpi keff"><div class="kl">Dev Efficiency</div><div class="kv">84%</div><div class="ks">of total time is dev</div></div>
+    <div class="kpi"><div class="kl">Total Hours</div><div class="kv" id="kv-total">1,568</div><div class="ks" id="ks-total">24 team members · full month</div></div>
+    <div class="kpi kdev"><div class="kl">Dev Hours</div><div class="kv" id="kv-dev">1,314</div><div class="ks">Non-meeting work</div></div>
+    <div class="kpi kmtg"><div class="kl">Meeting Hours</div><div class="kv" id="kv-mtg">254</div><div class="ks">Stand-ups, syncs, demos</div></div>
+    <div class="kpi keff"><div class="kl">Dev Efficiency</div><div class="kv" id="kv-eff">84%</div><div class="ks" id="ks-eff">of total time is dev</div></div>
   </div>
   <div class="g2">
     <div class="card">
@@ -626,8 +639,20 @@ const CAP_BASE = {
   'Aesha H.':119.5,'Ijaz Ahmed':119.5,'Muzamil S.':119.5,'Farah Eid':119.5
 };
 
+// ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
+const DASH_START = '2026-03-01';
+const DASH_END   = '2026-03-31';
+
+// Enrich dailyData with ISO dates so the date filter can compare strings
+(function enrichDailyIso(){
+  dailyData.forEach((d,i)=>{
+    const day = i + 1;
+    d.iso = `2026-03-${String(day).padStart(2,'0')}`;
+  });
+})();
+
 // ── Filter state ───────────────────────────────────────────
-let _filState = { role: 'All', members: [] };
+let _filState = { role: 'All', members: [], dateFrom: DASH_START, dateTo: DASH_END };
 
 // ── Vacation state: per-FT member {ramadan: N, regular: M} ─
 let _vac = {};
@@ -649,6 +674,49 @@ function getCap(n){
   const base=CAP_BASE[n]; if(!base) return null;
   const v=_vac[n]||{ramadan:0,regular:0};
   return Math.max(0, base - v.ramadan*5.5 - v.regular*7);
+}
+
+// ── Date range helpers ────────────────────────────────────
+function getDailyFiltered(){
+  const {dateFrom,dateTo} = _filState;
+  if(dateFrom===DASH_START && dateTo===DASH_END) return dailyData;
+  return dailyData.filter(d=>d.iso>=dateFrom && d.iso<=dateTo);
+}
+
+function setDateFilter(){
+  const from = document.getElementById('dateFrom').value;
+  const to   = document.getElementById('dateTo').value;
+  if(from && to && from > to){
+    // Swap if user chose end < start
+    document.getElementById('dateFrom').value = to;
+    document.getElementById('dateTo').value   = from;
+    _filState.dateFrom = to; _filState.dateTo = from;
+  } else {
+    _filState.dateFrom = from || DASH_START;
+    _filState.dateTo   = to   || DASH_END;
+  }
+  applyFilters();
+}
+
+function updateOvKpis(){
+  const fd     = getDailyFiltered();
+  const totDev = fd.reduce((s,d)=>s+d.dev,0);
+  const totMtg = fd.reduce((s,d)=>s+d.mtg,0);
+  const total  = totDev + totMtg;
+  const eff    = total>0 ? Math.round(totDev/total*100) : 0;
+  const fmt    = n=>Math.round(n).toLocaleString();
+  document.getElementById('kv-total').textContent = fmt(total);
+  document.getElementById('kv-dev').textContent   = fmt(totDev);
+  document.getElementById('kv-mtg').textContent   = fmt(totMtg);
+  document.getElementById('kv-eff').textContent   = eff+'%';
+  // Subtitle: show date range if filtered
+  const isFullMonth = _filState.dateFrom===DASH_START && _filState.dateTo===DASH_END;
+  document.getElementById('ks-total').textContent = isFullMonth
+    ? '24 team members · full month'
+    : `${fd.length} day${fd.length!==1?'s':''} selected`;
+  document.getElementById('ks-eff').textContent = isFullMonth
+    ? 'of total time is dev'
+    : `${_filState.dateFrom} → ${_filState.dateTo}`;
 }
 
 // ── Active (filtered) users ────────────────────────────────
@@ -859,21 +927,43 @@ const holidayPlugin={id:'hol',beforeDraw(chart){
   const x1=x.getPixelForValue(18),x2=x.getPixelForValue(22);
   c.save();c.fillStyle='rgba(0,0,0,.05)';c.fillRect(x1,top,x2-x1,bottom-top);c.restore();
 }};
-new Chart(document.getElementById('dailyChart'),{
-  type:'bar', plugins:[holidayPlugin],
-  data:{labels:dailyData.map(d=>d.d),datasets:[
-    {label:'Development',data:dailyData.map(d=>d.dev),backgroundColor:DEV,borderRadius:2,borderSkipped:false,stack:'s'},
-    {label:'Meetings',data:dailyData.map(d=>d.mtg),backgroundColor:MTG,borderRadius:2,borderSkipped:false,stack:'s'}
-  ]},
-  options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{display:false},tooltip:{callbacks:{
-      title:i=>i[0].label,label:i=>` ${i.dataset.label}: ${i.raw.toFixed(1)}h`,
-      footer:i=>`Total: ${i.reduce((s,x)=>s+x.raw,0).toFixed(1)}h`}}},
-    scales:{x:{stacked:true,grid:{display:false},ticks:{maxRotation:45}},
-            y:{stacked:true,grid:{color:'#f0f2f5'},ticks:{callback:v=>v+'h'}}}}
-});
+let dailyChartInst = null;
+function buildDailyChart(){
+  destroyC('dailyChart');
+  if(dailyChartInst){ dailyChartInst.destroy(); dailyChartInst=null; }
+  const fd = getDailyFiltered();
+  // Holiday shading: only shade if Eid days are in the filtered range
+  const eidPlugin={id:'hol',beforeDraw(chart){
+    const {ctx:c,chartArea:{left,right,top,bottom},scales:{x}}=chart;
+    // Find indices of Eid holiday days (Mar 19-23 = indices 18-22 in full array)
+    const eidDays=['Mar 19','Mar 20','Mar 21','Mar 22','Mar 23'];
+    const idxStart=fd.findIndex(d=>d.d===eidDays[0]);
+    const idxEnd  =fd.findIndex(d=>d.d===eidDays[4]);
+    if(idxStart<0) return;
+    const x1=x.getPixelForValue(idxStart);
+    const x2=x.getPixelForValue(idxEnd>=0?idxEnd:idxStart);
+    c.save();c.fillStyle='rgba(0,0,0,.05)';c.fillRect(x1,top,x2-x1+x.getPixelForValue(1)-x.getPixelForValue(0),bottom-top);c.restore();
+  }};
+  dailyChartInst=new Chart(document.getElementById('dailyChart'),{
+    type:'bar', plugins:[eidPlugin],
+    data:{labels:fd.map(d=>d.d),datasets:[
+      {label:'Development',data:fd.map(d=>d.dev),backgroundColor:DEV,borderRadius:2,borderSkipped:false,stack:'s'},
+      {label:'Meetings',   data:fd.map(d=>d.mtg),backgroundColor:MTG,borderRadius:2,borderSkipped:false,stack:'s'}
+    ]},
+    options:{responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{callbacks:{
+        title:i=>i[0].label,
+        label:i=>` ${i.dataset.label}: ${i.raw.toFixed(1)}h`,
+        footer:i=>`Total: ${i.reduce((s,x)=>s+x.raw,0).toFixed(1)}h`
+      }}},
+      scales:{x:{stacked:true,grid:{display:false},ticks:{maxRotation:45}},
+              y:{stacked:true,grid:{color:'#f0f2f5'},ticks:{callback:v=>v+'h'}}}}
+  });
+}
+buildDailyChart();
 
 buildTeamChart('total');
+updateOvKpis();
 
 // Helper: get ticket count for a user from ATTRIBUTION
 function getTickets(n){
@@ -1640,6 +1730,10 @@ document.addEventListener('click',function(e){
 function clearAllFilters(){
   _filState.role='All';
   _filState.members=[];
+  _filState.dateFrom=DASH_START;
+  _filState.dateTo=DASH_END;
+  document.getElementById('dateFrom').value=DASH_START;
+  document.getElementById('dateTo').value=DASH_END;
   ['All','FT','PT','Dev','QA'].forEach(k=>document.getElementById('fr-'+k).classList.toggle('on',k==='All'));
   updateMselLabel();
   buildMselItems('');
@@ -1648,8 +1742,9 @@ function clearAllFilters(){
 
 // ── Apply filters & rebuild visible tab ───────────────────
 function applyFilters(){
-  // Update clear button visibility
-  const active=_filState.role!=='All'||_filState.members.length>0;
+  // Update clear button visibility (active if any filter deviates from default)
+  const active = _filState.role!=='All' || _filState.members.length>0
+               || _filState.dateFrom!==DASH_START || _filState.dateTo!==DASH_END;
   document.getElementById('clearFilters').style.display=active?'':'none';
 
   // Reset built-cache to force rebuild
@@ -1665,6 +1760,8 @@ function applyFilters(){
     buildOvDonut();
     renderMTable();
     renderAboveBelow();
+    buildDailyChart();   // rebuild with date-filtered data
+    updateOvKpis();      // recalculate KPI totals from filtered days
   } else if(_curTab==='wt'){
     destroyC('wtChart'); destroyC('wtMemberChart');
     if(wtMemberChartInst){wtMemberChartInst.destroy();wtMemberChartInst=null;}
