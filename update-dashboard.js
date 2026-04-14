@@ -469,12 +469,15 @@ function patchHtml(html, clockData, attribution, vacDays, range) {
     `$1Nourhan Hosny's Workspace · ${memberCount} members · ${clockData.entryCount} entries · Updated ${today}$2`
   );
 
-  // Vacation days
+  // Vacation days — use ^const to avoid matching inside the export-function template literal
   const vacConst = `const _vacSettings = ${JSON.stringify(vacDays, null, 2)};`;
-  if (h.includes('const _vacSettings')) {
-    h = h.replace(/const _vacSettings\s*=[\s\S]*?;(?=\s*\n)/, vacConst);
+  const vacRe = /^const _vacSettings\s*=[\s\S]*?;(?=\s*\n)/m;
+  if (vacRe.test(h)) {
+    h = h.replace(vacRe, vacConst);
   } else {
-    h = h.replace('</script>', `\n// ── Persistent vacation days ──\n${vacConst}\n</script>`);
+    // Inject before the LAST </script> tag (the main script block)
+    const lastScript = h.lastIndexOf('</script>');
+    h = h.slice(0, lastScript) + `\n// ── Persistent vacation days ──\n${vacConst}\n` + h.slice(lastScript);
   }
 
   return h;
