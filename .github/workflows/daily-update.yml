@@ -2,58 +2,79 @@ name: Daily Dashboard Update
 
 on:
   schedule:
-    # Run at 8 AM UTC+2 (6 AM UTC daily)
-    # To change time: modify the cron expression below
-    # Format: minute hour day month day-of-week
-    # Current: 6 AM UTC = 8 AM UTC+2 ✅
+    # 6 AM UTC = 8 AM Cairo time (UTC+2) — runs every day
     - cron: '0 6 * * *'
 
-  # Allow manual trigger from GitHub Actions tab
+  # Manual trigger from the GitHub Actions tab
+  # You can also override the target month here (useful for backfills)
   workflow_dispatch:
+    inputs:
+      target_year:
+        description: 'Year to fetch (e.g. 2026) — leave blank for auto'
+        required: false
+      target_month:
+        description: 'Month number to fetch (1-12) — leave blank for auto'
+        required: false
+
+# Grant the Actions bot permission to push commits to main
+permissions:
+  contents: write
 
 jobs:
   update-dashboard:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repo
+      # ── 1. Checkout ──────────────────────────────────────────────────────
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # Use the Actions token so git push works without a PAT
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      # ── 2. Configure Git (must be BEFORE the script runs) ───────────────
+      - name: Configure Git identity
+        run: |
+          git config --local user.name  "Dashboard Auto-Update"
+          git config --local user.email "action@github.com"
+
+      # ── 3. Set up Node.js ────────────────────────────────────────────────
+      - name: Set up Node.js 18
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
 
-      # 3. Run the update script
-      - name: Update dashboard with fresh data
+      # ── 4. Run update script ─────────────────────────────────────────────
+      - name: Fetch fresh data and update dashboard
         env:
           CLOCKIFY_API_KEY: ${{ secrets.CLOCKIFY_API_KEY }}
-          AZURE_PAT: ${{ secrets.AZURE_PAT }}
-          AZURE_ORG: ${{ secrets.AZURE_ORG }}
+          AZURE_PAT:        ${{ secrets.AZURE_PAT }}
+          AZURE_ORG:        ${{ secrets.AZURE_ORG }}
+          AZURE_PROJECT:    ${{ secrets.AZURE_PROJECT }}
+          # Optional workspace override (set as a repo secret if needed)
+          CLOCKIFY_WORKSPACE_ID: ${{ secrets.CLOCKIFY_WORKSPACE_ID }}
+          # Manual overrides from workflow_dispatch inputs
+          TARGET_YEAR:  ${{ github.event.inputs.target_year }}
+          TARGET_MONTH: ${{ github.event.inputs.target_month }}
         run: node update-dashboard.js
 
-      # 4. Configure Git
-      - name: Configure Git
+      # ── 5. Deploy to GitHub Pages ────────────────────────────────────────
+      # The push in update-dashboard.js already triggers Pages rebuild,
+      # but we verify here in case the script skipped the push step.
+      - name: Verify push succeeded
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-
-      # 5. Commit and push changes
-      - name: Commit changes
-        run: |
-          if git diff --quiet; then
-            echo "No changes to commit"
+          if git log --oneline -1 | grep -q "Auto-update"; then
+            echo "✅ Dashboard updated and pushed successfully"
           else
-            git add clockify-dashboard.html vacation-days.json
-            git commit -m "🔄 Auto-update: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-            git push
+            echo "ℹ️  No new commit — data unchanged since last run"
           fi
 
-      # 6. Notify on failure
+      # ── 6. Notify on failure ─────────────────────────────────────────────
       - name: Notify on failure
         if: failure()
-        run: echo "❌ Dashboard update failed. Check the logs above."
+        run: |
+          echo "❌ Dashboard update failed."
+          echo "Check: 1) CLOCKIFY_API_KEY secret is set correctly"
+          echo "       2) Clockify workspace is accessible"
+          echo "       3) GitHub Pages is enabled for this repo"
