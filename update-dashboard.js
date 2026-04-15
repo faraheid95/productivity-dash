@@ -152,20 +152,19 @@ function productGroup(projectName) {
 }
 
 // ── Date range helpers ───────────────────────────────────────────────────────
-function monthRange(year, month) {
-  const pad      = n => String(n).padStart(2, '0');
-  const lastDay  = new Date(year, month, 0).getDate();
-  const monthName= new Date(year, month - 1, 1).toLocaleString('en-US', { month: 'long' });
-  const shortMon = new Date(year, month - 1, 1).toLocaleString('en-US', { month: 'short' });
+// Fixed history start: always fetch from this date so no month is ever lost.
+const HISTORY_START = '2026-03-01';
+
+function buildRange(startIso, endDate) {
+  const pad    = n => String(n).padStart(2, '0');
+  const endIso = `${endDate.getFullYear()}-${pad(endDate.getMonth() + 1)}-${pad(endDate.getDate())}`;
+  const startLabel = new Date(startIso + 'T12:00:00Z').toLocaleString('en-US', { month: 'long', year: 'numeric' });
+  const endLabel   = endDate.toLocaleString('en-US', { month: 'long', year: 'numeric' });
   return {
-    start:       `${year}-${pad(month)}-01T00:00:00.000Z`,
-    end:         `${year}-${pad(month)}-${pad(lastDay)}T23:59:59.999Z`,
-    startIso:    `${year}-${pad(month)}-01`,
-    endIso:      `${year}-${pad(month)}-${pad(lastDay)}`,
-    label:       `${monthName} ${year}`,
-    shortLabel:  shortMon,
-    daysInMonth: lastDay,
-    year, month
+    start:    `${startIso}T00:00:00.000Z`,
+    end:      `${endIso}T23:59:59.999Z`,
+    startIso, endIso,
+    label:    `${startLabel} – ${endLabel}`,
   };
 }
 
@@ -173,18 +172,10 @@ function monthRange(year, month) {
 async function updateDashboard() {
   console.log('🔄 Starting dashboard update…');
 
-  // Determine target month (default: previous completed month)
-  const now    = new Date();
-  let tYear    = parseInt(process.env.TARGET_YEAR  || now.getFullYear());
-  // getMonth() is 0-indexed (April = 3), so using it directly as a 1-indexed
-  // month number gives the PREVIOUS month (April → 3 = March). That's what we want:
-  // always show the last fully-completed month.
-  // Edge case: if we're in January (getMonth()=0), fall back to December of last year.
-  let tMonth   = parseInt(process.env.TARGET_MONTH || now.getMonth());
-  if (tMonth < 1)  { tMonth = 12; tYear--; }
-  if (tMonth > 12) { tMonth = 1;  tYear++; }
-  const range = monthRange(tYear, tMonth);
-  console.log(`📅 Target: ${range.label}`);
+  // Always fetch HISTORY_START → today so every past month is preserved.
+  const now   = new Date();
+  const range = buildRange(HISTORY_START, now);
+  console.log(`📅 Range: ${range.label}`);
 
   // Load vacation days
   let vacDays = {};
@@ -266,9 +257,10 @@ async function fetchClockifyData(wsId, range) {
   const clients   = {};
   const workTypes = {};
 
-  // Pre-fill every day so the daily chart has no gaps
-  for (let d = 1; d <= range.daysInMonth; d++) {
-    daily[`${range.shortLabel} ${d}`] = { dev: 0, mtg: 0 };
+  // Pre-fill every day in the full range so the daily chart has no gaps
+  for (let cur = new Date(range.start); cur <= new Date(range.end); cur.setUTCDate(cur.getUTCDate() + 1)) {
+    const lbl = cur.toLocaleString('en-US', { month: 'short' }) + ' ' + cur.getUTCDate();
+    daily[lbl] = { dev: 0, mtg: 0 };
   }
 
   for (const entry of entries) {
@@ -284,7 +276,7 @@ async function fetchClockifyData(wsId, range) {
     const grp    = productGroup(project);
     const start  = entry.timeInterval && entry.timeInterval.start;
     const d      = start ? new Date(start) : new Date();
-    const dayLbl = `${range.shortLabel} ${d.getUTCDate()}`;
+    const dayLbl = d.toLocaleString('en-US', { month: 'short' }) + ' ' + d.getUTCDate();
 
     // Per-user
     if (!users[name]) {
