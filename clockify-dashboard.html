@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 21 members · 1694 entries · Updated 23/05/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 21 members · 1698 entries · Updated 24/05/2026</div></div>
   <span class="badge">March 2026 – May 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-05-23" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-05-24" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-05-23" min="2026-03-01" max="2026-05-23" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-05-24" min="2026-03-01" max="2026-05-24" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -562,9 +562,9 @@ const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Un
 
 const clientStats = {
   "Fotopia": {
-    "dev": 2879.53,
-    "mtg": 313.74,
-    "total": 3193.27
+    "dev": 2879.56,
+    "mtg": 314.18,
+    "total": 3193.74
   },
   "KFH": {
     "dev": 94.95,
@@ -604,6 +604,12 @@ const clientStats = {
 };
 
 const productStats = {
+  "FotoCapture": {
+    "dev": 291.05,
+    "mtg": 107.82,
+    "total": 398.87,
+    "group": "Capture"
+  },
   "Foto Gnize V2": {
     "dev": 1003.55,
     "mtg": 169.65,
@@ -633,12 +639,6 @@ const productStats = {
     "mtg": 18.92,
     "total": 95.04,
     "group": "Internal"
-  },
-  "FotoCapture": {
-    "dev": 291.01,
-    "mtg": 107.38,
-    "total": 398.4,
-    "group": "Capture"
   },
   "Fototracker": {
     "dev": 241.95,
@@ -746,12 +746,12 @@ const productStats = {
 
 const workTypeStats = {
   "Unknown": {
-    "hrs": 3025.47,
-    "count": 1131
+    "hrs": 3025.51,
+    "count": 1132
   },
   "Meeting": {
-    "hrs": 459.05,
-    "count": 397
+    "hrs": 459.48,
+    "count": 400
   },
   "Bug Fix": {
     "hrs": 213.62,
@@ -1187,12 +1187,43 @@ const dailyData = [
     "d": "May 23",
     "dev": 0,
     "mtg": 0
+  },
+  {
+    "d": "May 24",
+    "dev": 0.04,
+    "mtg": 0.44
   }
 ];
 
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
+  "Omar Alaa Elnahass": {
+    "dev": 370.77,
+    "mtg": 31.41,
+    "total": 402.18,
+    "full": false,
+    "c": {
+      "Fotopia": 152.03,
+      "DET": 244.3,
+      "ENEO": 1.05,
+      "UAQ": 4.8
+    },
+    "p": {
+      "FotoCapture": 118.47,
+      "Fotopia IDP": 33.41,
+      "Fototracker": 244.3,
+      "Fotopia": 0.05,
+      "Fotofind": 5.95
+    },
+    "w": {
+      "Unknown": 312.42,
+      "Meeting": 31.41,
+      "Bug Fix": 17.81,
+      "Support": 13.96,
+      "Feature": 26.58
+    }
+  },
   "Ahmed Abouzaid": {
     "dev": 94.41,
     "mtg": 18.98,
@@ -1252,32 +1283,6 @@ const USERS = {
     },
     "w": {
       "Unknown": 408.72
-    }
-  },
-  "Omar Alaa Elnahass": {
-    "dev": 370.73,
-    "mtg": 30.98,
-    "total": 401.71,
-    "full": false,
-    "c": {
-      "Fotopia": 151.55,
-      "DET": 244.3,
-      "ENEO": 1.05,
-      "UAQ": 4.8
-    },
-    "p": {
-      "Fotopia IDP": 33.41,
-      "FotoCapture": 118,
-      "Fototracker": 244.3,
-      "Fotopia": 0.05,
-      "Fotofind": 5.95
-    },
-    "w": {
-      "Unknown": 312.38,
-      "Meeting": 30.98,
-      "Bug Fix": 17.81,
-      "Support": 13.96,
-      "Feature": 26.58
     }
   },
   "Daniel Lewis": {
@@ -1646,7 +1651,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-05-23';
+const DASH_END   = '2026-05-24';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
