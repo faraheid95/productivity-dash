@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 21 members · 1731 entries · Updated 28/05/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 21 members · 1732 entries · Updated 29/05/2026</div></div>
   <span class="badge">March 2026 – May 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-05-28" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-05-29" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-05-28" min="2026-03-01" max="2026-05-28" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-05-29" min="2026-03-01" max="2026-05-29" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -562,9 +562,9 @@ const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Un
 
 const clientStats = {
   "KFH": {
-    "dev": 95.49,
+    "dev": 95.62,
     "mtg": 35,
-    "total": 130.49
+    "total": 130.62
   },
   "Fotopia": {
     "dev": 2927.11,
@@ -605,9 +605,9 @@ const clientStats = {
 
 const productStats = {
   "KFH": {
-    "dev": 33.69,
+    "dev": 33.82,
     "mtg": 6.09,
-    "total": 39.78,
+    "total": 39.91,
     "group": "Internal"
   },
   "Global Pharma": {
@@ -746,8 +746,8 @@ const productStats = {
 
 const workTypeStats = {
   "Unknown": {
-    "hrs": 3081.42,
-    "count": 1159
+    "hrs": 3081.55,
+    "count": 1160
   },
   "Meeting": {
     "hrs": 462.48,
@@ -1212,6 +1212,11 @@ const dailyData = [
     "d": "May 28",
     "dev": 0.13,
     "mtg": 0
+  },
+  {
+    "d": "May 29",
+    "dev": 0.13,
+    "mtg": 0
   }
 ];
 
@@ -1219,18 +1224,18 @@ const dailyData = [
 // 24 members · 827 entries
 const USERS = {
   "Thejaswini.nagaraju": {
-    "dev": 7.87,
+    "dev": 8,
     "mtg": 0.13,
-    "total": 8,
+    "total": 8.13,
     "full": false,
     "c": {
-      "KFH": 8
+      "KFH": 8.13
     },
     "p": {
-      "KFH": 8
+      "KFH": 8.13
     },
     "w": {
-      "Unknown": 7.6,
+      "Unknown": 7.73,
       "Bug Fix": 0.13,
       "Meeting": 0.13,
       "Feature": 0.13
@@ -1672,7 +1677,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-05-28';
+const DASH_END   = '2026-05-29';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
