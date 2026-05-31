@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 21 members · 1732 entries · Updated 30/05/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 21 members · 1737 entries · Updated 31/05/2026</div></div>
   <span class="badge">March 2026 – May 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-05-30" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-05-31" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-05-30" min="2026-03-01" max="2026-05-30" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-05-31" min="2026-03-01" max="2026-05-31" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -561,15 +561,15 @@ const GRP_COLORS = {
 const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Unknown:'#94a3b8', Meeting:'#f59e0b'};
 
 const clientStats = {
+  "Fotopia": {
+    "dev": 2944.11,
+    "mtg": 316.18,
+    "total": 3260.28
+  },
   "KFH": {
     "dev": 95.62,
     "mtg": 35,
     "total": 130.62
-  },
-  "Fotopia": {
-    "dev": 2927.11,
-    "mtg": 316.18,
-    "total": 3243.28
   },
   "ENEO": {
     "dev": 98.1,
@@ -604,6 +604,12 @@ const clientStats = {
 };
 
 const productStats = {
+  "R&D": {
+    "dev": 313.15,
+    "mtg": 14.39,
+    "total": 327.54,
+    "group": "Internal"
+  },
   "KFH": {
     "dev": 33.82,
     "mtg": 6.09,
@@ -700,12 +706,6 @@ const productStats = {
     "total": 12.67,
     "group": "Fotoverifai"
   },
-  "R&D": {
-    "dev": 296.15,
-    "mtg": 14.39,
-    "total": 310.54,
-    "group": "Internal"
-  },
   "FotoCapture V6.5": {
     "dev": 16.5,
     "mtg": 0.75,
@@ -746,8 +746,8 @@ const productStats = {
 
 const workTypeStats = {
   "Unknown": {
-    "hrs": 3081.55,
-    "count": 1160
+    "hrs": 3098.55,
+    "count": 1165
   },
   "Meeting": {
     "hrs": 462.48,
@@ -1180,17 +1180,17 @@ const dailyData = [
   },
   {
     "d": "May 22",
-    "dev": 9.9,
+    "dev": 13.9,
     "mtg": 0
   },
   {
     "d": "May 23",
-    "dev": 0,
+    "dev": 4,
     "mtg": 0
   },
   {
     "d": "May 24",
-    "dev": 16.98,
+    "dev": 20.98,
     "mtg": 0.94
   },
   {
@@ -1210,7 +1210,7 @@ const dailyData = [
   },
   {
     "d": "May 28",
-    "dev": 0.13,
+    "dev": 2.13,
     "mtg": 0
   },
   {
@@ -1220,6 +1220,11 @@ const dailyData = [
   },
   {
     "d": "May 30",
+    "dev": 3,
+    "mtg": 0
+  },
+  {
+    "d": "May 31",
     "dev": 0,
     "mtg": 0
   }
@@ -1228,6 +1233,22 @@ const dailyData = [
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
+  "i-nancy.amr": {
+    "dev": 215.52,
+    "mtg": 0,
+    "total": 215.52,
+    "full": false,
+    "c": {
+      "Fotopia": 215.52
+    },
+    "p": {
+      "R&D": 141.75,
+      "Fotopia": 73.76
+    },
+    "w": {
+      "Unknown": 215.52
+    }
+  },
   "Thejaswini.nagaraju": {
     "dev": 8,
     "mtg": 0.13,
@@ -1481,22 +1502,6 @@ const USERS = {
       "Support": 4.3
     }
   },
-  "i-nancy.amr": {
-    "dev": 198.52,
-    "mtg": 0,
-    "total": 198.52,
-    "full": false,
-    "c": {
-      "Fotopia": 198.52
-    },
-    "p": {
-      "R&D": 124.75,
-      "Fotopia": 73.76
-    },
-    "w": {
-      "Unknown": 198.52
-    }
-  },
   "Sameh Amnoun": {
     "dev": 83.75,
     "mtg": 49.75,
@@ -1682,7 +1687,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-05-30';
+const DASH_END   = '2026-05-31';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
