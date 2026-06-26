@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 24 members · 2506 entries · Updated 25/06/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 24 members · 2513 entries · Updated 26/06/2026</div></div>
   <span class="badge">March 2026 – June 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-06-25" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-06-26" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-06-25" min="2026-03-01" max="2026-06-25" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-06-26" min="2026-03-01" max="2026-06-26" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -562,14 +562,14 @@ const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Un
 
 const clientStats = {
   "Fotopia": {
-    "dev": 3944.43,
-    "mtg": 497.1,
-    "total": 4441.53
+    "dev": 3955.51,
+    "mtg": 502.36,
+    "total": 4457.87
   },
   "Internal": {
     "dev": 0,
-    "mtg": 187.56,
-    "total": 187.56
+    "mtg": 189.31,
+    "total": 189.31
   },
   "DET": {
     "dev": 303.1,
@@ -604,17 +604,17 @@ const clientStats = {
 };
 
 const productStats = {
-  "FotoCapture": {
-    "dev": 369.67,
-    "mtg": 131.23,
-    "total": 500.9,
-    "group": "Capture"
-  },
   "Fotopia IDP": {
-    "dev": 193.64,
-    "mtg": 92.75,
-    "total": 286.39,
+    "dev": 204.22,
+    "mtg": 98.01,
+    "total": 302.23,
     "group": "Internal"
+  },
+  "FotoCapture": {
+    "dev": 370.17,
+    "mtg": 132.98,
+    "total": 503.15,
+    "group": "Capture"
   },
   "Fotopia": {
     "dev": 320.42,
@@ -758,12 +758,12 @@ const productStats = {
 
 const workTypeStats = {
   "Unknown": {
-    "hrs": 3986.9,
-    "count": 1563
+    "hrs": 3997.98,
+    "count": 1566
   },
   "Meeting": {
-    "hrs": 773.71,
-    "count": 708
+    "hrs": 780.72,
+    "count": 712
   },
   "Bug Fix": {
     "hrs": 280.5,
@@ -1362,59 +1362,93 @@ const dailyData = [
   },
   {
     "d": "Jun 25",
-    "dev": 2.63,
-    "mtg": 0.89
+    "dev": 13.71,
+    "mtg": 7.9
+  },
+  {
+    "d": "Jun 26",
+    "dev": 0,
+    "mtg": 0
   }
 ];
 
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
-  "mostafa.omran": {
-    "dev": 24.67,
-    "mtg": 8.67,
-    "total": 33.33,
-    "full": false,
-    "c": {
-      "Fotopia": 31.83,
-      "KFH": 1.5
-    },
-    "p": {
-      "FotoCapture": 23.83,
-      "Fotopia": 6.5,
-      "KFH": 1.5,
-      "FotoCapture V6.7": 1.5
-    },
-    "w": {
-      "Unknown": 22.67,
-      "Meeting": 8.67,
-      "Bug Fix": 2
-    }
-  },
   "Omar Alaa Elnahass": {
-    "dev": 420.75,
-    "mtg": 35.48,
-    "total": 456.24,
+    "dev": 422.92,
+    "mtg": 40.74,
+    "total": 463.66,
     "full": false,
     "c": {
-      "Fotopia": 189.13,
+      "Fotopia": 196.55,
       "DET": 258.78,
       "UAQ": 7.28,
       "ENEO": 1.05
     },
     "p": {
-      "Fotopia IDP": 62.24,
+      "Fotopia IDP": 69.67,
       "Fototracker": 258.78,
       "FotoCapture": 129.21,
       "Fotopia": 0.05,
       "Fotofind": 5.95
     },
     "w": {
-      "Meeting": 35.48,
-      "Unknown": 342.68,
+      "Unknown": 344.85,
+      "Meeting": 40.74,
       "Bug Fix": 37.53,
       "Support": 13.96,
       "Feature": 26.58
+    }
+  },
+  "aesha.hassen": {
+    "dev": 557.52,
+    "mtg": 0,
+    "total": 557.52,
+    "full": false,
+    "c": {
+      "Fotopia": 539.85,
+      "DET": 17.67
+    },
+    "p": {
+      "Fotopia IDP": 29.1,
+      "Shj HR": 6.12,
+      "Miscellaneous": 208.17,
+      "FotoCapture": 48.53,
+      "Fotognize Testing": 29.92,
+      "Fotofind": 93.67,
+      "Fototracker": 17.67,
+      "FotoGnize": 13.52,
+      "Fotocapture Testing": 72.25,
+      "Global Pharma": 8.75,
+      "FotoCapture V6.6": 18,
+      "Fotoverifai Testing": 8.67,
+      "Fotoverifai": 3.17
+    },
+    "w": {
+      "Unknown": 557.52
+    }
+  },
+  "mostafa.omran": {
+    "dev": 25.17,
+    "mtg": 10.42,
+    "total": 35.58,
+    "full": false,
+    "c": {
+      "Internal": 1.75,
+      "Fotopia": 32.33,
+      "KFH": 1.5
+    },
+    "p": {
+      "FotoCapture": 26.08,
+      "Fotopia": 6.5,
+      "KFH": 1.5,
+      "FotoCapture V6.7": 1.5
+    },
+    "w": {
+      "Meeting": 10.42,
+      "Unknown": 23.17,
+      "Bug Fix": 2
     }
   },
   "Omar Mohamed ": {
@@ -1530,34 +1564,6 @@ const USERS = {
       "Meeting": 78,
       "Bug Fix": 12.25,
       "Support": 2.75
-    }
-  },
-  "aesha.hassen": {
-    "dev": 549.1,
-    "mtg": 0,
-    "total": 549.1,
-    "full": false,
-    "c": {
-      "Fotopia": 531.43,
-      "DET": 17.67
-    },
-    "p": {
-      "Fotopia IDP": 20.68,
-      "Shj HR": 6.12,
-      "Miscellaneous": 208.17,
-      "FotoCapture": 48.53,
-      "Fotognize Testing": 29.92,
-      "Fotofind": 93.67,
-      "Fototracker": 17.67,
-      "FotoGnize": 13.52,
-      "Fotocapture Testing": 72.25,
-      "Global Pharma": 8.75,
-      "FotoCapture V6.6": 18,
-      "Fotoverifai Testing": 8.67,
-      "Fotoverifai": 3.17
-    },
-    "w": {
-      "Unknown": 549.1
     }
   },
   "Ahmed Adil": {
@@ -1920,7 +1926,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-06-25';
+const DASH_END   = '2026-06-26';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
