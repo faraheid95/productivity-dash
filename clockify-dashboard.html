@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 24 members · 2840 entries · Updated 10/07/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 24 members · 2846 entries · Updated 11/07/2026</div></div>
   <span class="badge">March 2026 – July 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-07-10" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-07-11" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-07-10" min="2026-03-01" max="2026-07-10" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-07-11" min="2026-03-01" max="2026-07-11" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -561,15 +561,15 @@ const GRP_COLORS = {
 const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Unknown:'#94a3b8', Meeting:'#f59e0b'};
 
 const clientStats = {
+  "Fotopia": {
+    "dev": 4332.98,
+    "mtg": 570.1,
+    "total": 4903.08
+  },
   "Internal": {
     "dev": 0,
     "mtg": 273.56,
     "total": 273.56
-  },
-  "Fotopia": {
-    "dev": 4308.98,
-    "mtg": 570.1,
-    "total": 4879.08
   },
   "Digitizeme": {
     "dev": 25,
@@ -604,6 +604,18 @@ const clientStats = {
 };
 
 const productStats = {
+  "Miscellaneous": {
+    "dev": 264.56,
+    "mtg": 5.58,
+    "total": 270.14,
+    "group": "Internal"
+  },
+  "Global Pharma": {
+    "dev": 39.09,
+    "mtg": 4,
+    "total": 43.09,
+    "group": "Internal"
+  },
   "Demo Support": {
     "dev": 0,
     "mtg": 173.63,
@@ -653,16 +665,16 @@ const productStats = {
     "group": "Capture"
   },
   "Fotopia IDP": {
-    "dev": 338.11,
+    "dev": 339.11,
     "mtg": 114.93,
-    "total": 453.05,
+    "total": 454.05,
     "group": "Internal"
   },
-  "Miscellaneous": {
-    "dev": 251.56,
-    "mtg": 5.58,
-    "total": 257.14,
-    "group": "Internal"
+  "Fotofind": {
+    "dev": 253.32,
+    "mtg": 14.15,
+    "total": 267.46,
+    "group": "Fotofind"
   },
   "Foto Gnize V2": {
     "dev": 1478.57,
@@ -676,12 +688,6 @@ const productStats = {
     "total": 337.5,
     "group": "Capture"
   },
-  "Fotofind": {
-    "dev": 246.32,
-    "mtg": 14.15,
-    "total": 260.46,
-    "group": "Fotofind"
-  },
   "Fototracker": {
     "dev": 263.43,
     "mtg": 16.09,
@@ -693,12 +699,6 @@ const productStats = {
     "mtg": 1,
     "total": 54.07,
     "group": "Fotognize"
-  },
-  "Global Pharma": {
-    "dev": 36.09,
-    "mtg": 4,
-    "total": 40.09,
-    "group": "Internal"
   },
   "Shj HR": {
     "dev": 6.95,
@@ -763,13 +763,13 @@ const productStats = {
 };
 
 const workTypeStats = {
+  "Unknown": {
+    "hrs": 4393.65,
+    "count": 1742
+  },
   "Meeting": {
     "hrs": 954.28,
     "count": 851
-  },
-  "Unknown": {
-    "hrs": 4369.65,
-    "count": 1736
   },
   "Bug Fix": {
     "hrs": 293.16,
@@ -1433,16 +1433,21 @@ const dailyData = [
   },
   {
     "d": "Jul 8",
-    "dev": 27.02,
+    "dev": 35.02,
     "mtg": 20.18
   },
   {
     "d": "Jul 9",
-    "dev": 22.68,
+    "dev": 30.68,
     "mtg": 11.92
   },
   {
     "d": "Jul 10",
+    "dev": 8,
+    "mtg": 0
+  },
+  {
+    "d": "Jul 11",
     "dev": 0,
     "mtg": 0
   }
@@ -1451,6 +1456,34 @@ const dailyData = [
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
+  "aesha.hassen": {
+    "dev": 651.28,
+    "mtg": 0,
+    "total": 651.28,
+    "full": false,
+    "c": {
+      "Fotopia": 633.62,
+      "DET": 17.67
+    },
+    "p": {
+      "Miscellaneous": 240.92,
+      "Global Pharma": 11.75,
+      "Fotofind": 110.92,
+      "Fotopia IDP": 64.37,
+      "FotoCapture V6.6": 23.5,
+      "Shj HR": 6.12,
+      "FotoCapture": 48.53,
+      "Fotognize Testing": 29.92,
+      "Fototracker": 17.67,
+      "FotoGnize": 13.52,
+      "Fotocapture Testing": 72.25,
+      "Fotoverifai Testing": 8.67,
+      "Fotoverifai": 3.17
+    },
+    "w": {
+      "Unknown": 651.28
+    }
+  },
   "Ali Murtaza": {
     "dev": 50.33,
     "mtg": 89.67,
@@ -1631,34 +1664,6 @@ const USERS = {
       "Meeting": 143.33,
       "Feature": 9.08,
       "Support": 1
-    }
-  },
-  "aesha.hassen": {
-    "dev": 627.28,
-    "mtg": 0,
-    "total": 627.28,
-    "full": false,
-    "c": {
-      "Fotopia": 609.62,
-      "DET": 17.67
-    },
-    "p": {
-      "Miscellaneous": 227.92,
-      "Fotopia IDP": 63.37,
-      "Fotofind": 103.92,
-      "FotoCapture V6.6": 23.5,
-      "Shj HR": 6.12,
-      "FotoCapture": 48.53,
-      "Fotognize Testing": 29.92,
-      "Fototracker": 17.67,
-      "FotoGnize": 13.52,
-      "Fotocapture Testing": 72.25,
-      "Global Pharma": 8.75,
-      "Fotoverifai Testing": 8.67,
-      "Fotoverifai": 3.17
-    },
-    "w": {
-      "Unknown": 627.28
     }
   },
   "Mohammed Yasser": {
@@ -2008,7 +2013,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-07-10';
+const DASH_END   = '2026-07-11';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
