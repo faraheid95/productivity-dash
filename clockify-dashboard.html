@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 28 members · 3268 entries · Updated 24/07/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 28 members · 3269 entries · Updated 25/07/2026</div></div>
   <span class="badge">March 2026 – July 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-07-24" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-07-25" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-07-24" min="2026-03-01" max="2026-07-24" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-07-25" min="2026-03-01" max="2026-07-25" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -562,9 +562,9 @@ const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Un
 
 const clientStats = {
   "Fotopia": {
-    "dev": 4856.93,
+    "dev": 4859.68,
     "mtg": 660.52,
-    "total": 5517.46
+    "total": 5520.2
   },
   "Internal": {
     "dev": 0,
@@ -604,16 +604,16 @@ const clientStats = {
 };
 
 const productStats = {
+  "R&D": {
+    "dev": 553.38,
+    "mtg": 16.39,
+    "total": 569.77,
+    "group": "Internal"
+  },
   "Fotopia": {
     "dev": 377.58,
     "mtg": 113.7,
     "total": 491.28,
-    "group": "Internal"
-  },
-  "R&D": {
-    "dev": 550.64,
-    "mtg": 16.39,
-    "total": 567.03,
     "group": "Internal"
   },
   "Fotofind": {
@@ -764,8 +764,8 @@ const productStats = {
 
 const workTypeStats = {
   "Unknown": {
-    "hrs": 4951.48,
-    "count": 1956
+    "hrs": 4954.22,
+    "count": 1957
   },
   "Meeting": {
     "hrs": 1124.56,
@@ -1513,7 +1513,12 @@ const dailyData = [
   },
   {
     "d": "Jul 24",
-    "dev": 1.82,
+    "dev": 4.57,
+    "mtg": 0
+  },
+  {
+    "d": "Jul 25",
+    "dev": 0,
     "mtg": 0
   }
 ];
@@ -1521,6 +1526,28 @@ const dailyData = [
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
+  "Mohammed Yasser": {
+    "dev": 267.23,
+    "mtg": 19.48,
+    "total": 286.71,
+    "full": false,
+    "c": {
+      "Fotopia": 274.76,
+      "Internal": 11.96
+    },
+    "p": {
+      "R&D": 147.46,
+      "Foto Gnize V2": 64.22,
+      "Fotopia": 75.03
+    },
+    "w": {
+      "Unknown": 208.29,
+      "Feature": 9.91,
+      "Meeting": 19.48,
+      "Bug Fix": 44.74,
+      "Support": 4.3
+    }
+  },
   "I-AbdulRahman.Saeed": {
     "dev": 222.98,
     "mtg": 86.86,
@@ -1581,28 +1608,6 @@ const USERS = {
       "Bug Fix": 45.54,
       "Feature": 37.89,
       "Support": 17.45
-    }
-  },
-  "Mohammed Yasser": {
-    "dev": 264.48,
-    "mtg": 19.48,
-    "total": 283.97,
-    "full": false,
-    "c": {
-      "Fotopia": 272.01,
-      "Internal": 11.96
-    },
-    "p": {
-      "R&D": 144.71,
-      "Foto Gnize V2": 64.22,
-      "Fotopia": 75.03
-    },
-    "w": {
-      "Unknown": 205.54,
-      "Feature": 9.91,
-      "Meeting": 19.48,
-      "Bug Fix": 44.74,
-      "Support": 4.3
     }
   },
   "i-nancy.amr": {
@@ -2157,7 +2162,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-07-24';
+const DASH_END   = '2026-07-25';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
