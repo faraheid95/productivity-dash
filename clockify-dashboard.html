@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Team Time Dashboard – March 2026 – July 2026</title>
+<title>Team Time Dashboard – March 2026 – August 2026</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{
@@ -149,8 +149,8 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 28 members · 3420 entries · Updated 31/07/2026</div></div>
-  <span class="badge">March 2026 – July 2026</span>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 28 members · 3429 entries · Updated 01/08/2026</div></div>
+  <span class="badge">March 2026 – August 2026</span>
 </header>
 
 <div class="tabs">
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-07-31" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-08-01" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-07-31" min="2026-03-01" max="2026-07-31" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-08-01" min="2026-03-01" max="2026-08-01" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -562,14 +562,19 @@ const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Un
 
 const clientStats = {
   "Fotopia": {
-    "dev": 5129.38,
-    "mtg": 692.11,
-    "total": 5821.5
+    "dev": 5140.58,
+    "mtg": 692.61,
+    "total": 5833.2
   },
   "Internal": {
     "dev": 0,
     "mtg": 323.85,
     "total": 323.85
+  },
+  "Digitizeme": {
+    "dev": 85.71,
+    "mtg": 34.08,
+    "total": 119.79
   },
   "ENEO": {
     "dev": 137.35,
@@ -591,11 +596,6 @@ const clientStats = {
     "mtg": 2.33,
     "total": 103.79
   },
-  "Digitizeme": {
-    "dev": 85.71,
-    "mtg": 32.58,
-    "total": 118.29
-  },
   "UAQ": {
     "dev": 48.9,
     "mtg": 5.94,
@@ -604,6 +604,12 @@ const clientStats = {
 };
 
 const productStats = {
+  "Fotofind AI": {
+    "dev": 264.83,
+    "mtg": 82.3,
+    "total": 347.13,
+    "group": "Fotofind"
+  },
   "R&D": {
     "dev": 664.17,
     "mtg": 16.39,
@@ -663,12 +669,6 @@ const productStats = {
     "mtg": 0,
     "total": 88.97,
     "group": "Internal"
-  },
-  "Fotofind AI": {
-    "dev": 253.63,
-    "mtg": 80.3,
-    "total": 333.93,
-    "group": "Fotofind"
   },
   "Foto Gnize V2": {
     "dev": 1595.63,
@@ -764,12 +764,16 @@ const productStats = {
 
 const workTypeStats = {
   "Unknown": {
-    "hrs": 5296.03,
-    "count": 2056
+    "hrs": 5305.96,
+    "count": 2062
+  },
+  "Bug Fix": {
+    "hrs": 331.53,
+    "count": 177
   },
   "Meeting": {
-    "hrs": 1164.32,
-    "count": 1071
+    "hrs": 1166.32,
+    "count": 1073
   },
   "Feature": {
     "hrs": 194.1,
@@ -778,10 +782,6 @@ const workTypeStats = {
   "Support": {
     "hrs": 181.65,
     "count": 63
-  },
-  "Bug Fix": {
-    "hrs": 330.26,
-    "count": 176
   }
 };
 
@@ -1543,12 +1543,17 @@ const dailyData = [
   },
   {
     "d": "Jul 30",
-    "dev": 36.61,
-    "mtg": 3.14
+    "dev": 40.61,
+    "mtg": 5.14
   },
   {
     "d": "Jul 31",
-    "dev": 0,
+    "dev": 6.1,
+    "mtg": 0
+  },
+  {
+    "d": "Aug 1",
+    "dev": 1.09,
     "mtg": 0
   }
 ];
@@ -1556,6 +1561,27 @@ const dailyData = [
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
+  "i-nancy.amr": {
+    "dev": 308.04,
+    "mtg": 22.3,
+    "total": 330.34,
+    "full": false,
+    "c": {
+      "Fotopia": 302.87,
+      "Digitizeme": 27.47
+    },
+    "p": {
+      "Fotofind AI": 114.82,
+      "R&D": 141.75,
+      "Fotopia": 73.76
+    },
+    "w": {
+      "Unknown": 304.77,
+      "Bug Fix": 1.27,
+      "Meeting": 22.3,
+      "Support": 2
+    }
+  },
   "Mohammed Yasser": {
     "dev": 301.51,
     "mtg": 19.48,
@@ -1731,26 +1757,6 @@ const USERS = {
       "Unknown": 47.37,
       "Meeting": 97.67,
       "Bug Fix": 8
-    }
-  },
-  "i-nancy.amr": {
-    "dev": 296.84,
-    "mtg": 20.3,
-    "total": 317.14,
-    "full": false,
-    "c": {
-      "Fotopia": 291.17,
-      "Digitizeme": 25.97
-    },
-    "p": {
-      "Fotofind AI": 101.62,
-      "R&D": 141.75,
-      "Fotopia": 73.76
-    },
-    "w": {
-      "Unknown": 294.84,
-      "Meeting": 20.3,
-      "Support": 2
     }
   },
   "Menna Ayman": {
@@ -2199,7 +2205,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-07-31';
+const DASH_END   = '2026-08-01';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
