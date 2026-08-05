@@ -149,7 +149,7 @@ tr:hover td{background:#fafbff;cursor:pointer}
 <body>
 
 <header>
-  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 28 members · 3484 entries · Updated 04/08/2026</div></div>
+  <div><div class="h1">Team Time Dashboard</div><div class="h2">Nourhan Hosny's Workspace · 28 members · 3512 entries · Updated 05/08/2026</div></div>
   <span class="badge">March 2026 – August 2026</span>
 </header>
 
@@ -189,9 +189,9 @@ tr:hover td{background:#fafbff;cursor:pointer}
   <!-- Date range filter -->
   <span class="fbar-label">Date</span>
   <div class="date-filter-wrap">
-    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-08-04" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateFrom" value="2026-03-01" min="2026-03-01" max="2026-08-05" onchange="setDateFilter()">
     <span class="date-arrow">→</span>
-    <input type="date" class="date-inp" id="dateTo" value="2026-08-04" min="2026-03-01" max="2026-08-04" onchange="setDateFilter()">
+    <input type="date" class="date-inp" id="dateTo" value="2026-08-05" min="2026-03-01" max="2026-08-05" onchange="setDateFilter()">
   </div>
   <!-- Active filter chips + clear -->
   <span id="filterChips" style="display:flex;gap:5px;align-items:center"></span>
@@ -561,40 +561,40 @@ const GRP_COLORS = {
 const WT_COLORS = {'Bug Fix':'#ef4444', Feature:'#10b981', Support:'#3b82f6', Unknown:'#94a3b8', Meeting:'#f59e0b'};
 
 const clientStats = {
-  "KFH": {
-    "dev": 196.17,
-    "mtg": 73.42,
-    "total": 269.59
-  },
   "Fotopia": {
-    "dev": 5259.89,
-    "mtg": 717.98,
-    "total": 5977.87
+    "dev": 5298.92,
+    "mtg": 722.25,
+    "total": 6021.18
   },
   "Digitizeme": {
-    "dev": 85.89,
-    "mtg": 37.08,
-    "total": 122.97
+    "dev": 90.13,
+    "mtg": 38.08,
+    "total": 128.21
+  },
+  "KFH": {
+    "dev": 197.67,
+    "mtg": 73.42,
+    "total": 271.09
+  },
+  "ENEO": {
+    "dev": 138.35,
+    "mtg": 14.25,
+    "total": 152.6
+  },
+  "RTA": {
+    "dev": 125.46,
+    "mtg": 2.33,
+    "total": 127.79
   },
   "Internal": {
     "dev": 0,
     "mtg": 323.85,
     "total": 323.85
   },
-  "ENEO": {
-    "dev": 137.35,
-    "mtg": 14.25,
-    "total": 151.6
-  },
   "DET": {
     "dev": 307.06,
     "mtg": 19.83,
     "total": 326.89
-  },
-  "RTA": {
-    "dev": 101.46,
-    "mtg": 2.33,
-    "total": 103.79
   },
   "UAQ": {
     "dev": 48.9,
@@ -604,23 +604,59 @@ const clientStats = {
 };
 
 const productStats = {
-  "KFH": {
-    "dev": 134.37,
-    "mtg": 43.5,
-    "total": 177.87,
+  "R&D": {
+    "dev": 728.9,
+    "mtg": 27.68,
+    "total": 756.58,
     "group": "Internal"
   },
   "Fotopia IDP": {
-    "dev": 387.15,
-    "mtg": 137.08,
-    "total": 524.22,
+    "dev": 389.15,
+    "mtg": 137.85,
+    "total": 527,
     "group": "Internal"
   },
-  "Fotofind": {
-    "dev": 318.56,
-    "mtg": 19.45,
-    "total": 338.01,
+  "FotoCapture V6.7": {
+    "dev": 356.74,
+    "mtg": 51.59,
+    "total": 408.33,
+    "group": "Capture"
+  },
+  "Fotofind AI": {
+    "dev": 295.54,
+    "mtg": 89.55,
+    "total": 385.09,
     "group": "Fotofind"
+  },
+  "Fotofind": {
+    "dev": 328.15,
+    "mtg": 19.45,
+    "total": 347.6,
+    "group": "Fotofind"
+  },
+  "Foto Gnize V2": {
+    "dev": 1611.33,
+    "mtg": 278.86,
+    "total": 1890.2,
+    "group": "Fotognize"
+  },
+  "FotoCapture V6.6": {
+    "dev": 329.25,
+    "mtg": 37.5,
+    "total": 366.75,
+    "group": "Capture"
+  },
+  "KFH": {
+    "dev": 135.87,
+    "mtg": 43.5,
+    "total": 179.37,
+    "group": "Internal"
+  },
+  "FotoCapture": {
+    "dev": 404.32,
+    "mtg": 157.48,
+    "total": 561.8,
+    "group": "Capture"
   },
   "Fotopia": {
     "dev": 427.62,
@@ -628,35 +664,11 @@ const productStats = {
     "total": 544.33,
     "group": "Internal"
   },
-  "Fotofind AI": {
-    "dev": 284.1,
-    "mtg": 88.05,
-    "total": 372.15,
-    "group": "Fotofind"
-  },
-  "Foto Gnize V2": {
-    "dev": 1607.25,
-    "mtg": 278.86,
-    "total": 1886.12,
-    "group": "Fotognize"
-  },
-  "R&D": {
-    "dev": 717.07,
-    "mtg": 27.68,
-    "total": 744.75,
+  "RTA": {
+    "dev": 112.97,
+    "mtg": 0,
+    "total": 112.97,
     "group": "Internal"
-  },
-  "FotoCapture V6.7": {
-    "dev": 354.74,
-    "mtg": 49.09,
-    "total": 403.83,
-    "group": "Capture"
-  },
-  "FotoCapture V6.6": {
-    "dev": 326.75,
-    "mtg": 37.5,
-    "total": 364.25,
-    "group": "Capture"
   },
   "Shj HR": {
     "dev": 6.95,
@@ -664,23 +676,11 @@ const productStats = {
     "total": 9.95,
     "group": "Internal"
   },
-  "FotoCapture": {
-    "dev": 403.48,
-    "mtg": 156.98,
-    "total": 560.46,
-    "group": "Capture"
-  },
   "Fototracker": {
     "dev": 271.39,
     "mtg": 17.33,
     "total": 288.72,
     "group": "Fototracker"
-  },
-  "RTA": {
-    "dev": 88.97,
-    "mtg": 0,
-    "total": 88.97,
-    "group": "Internal"
   },
   "Miscellaneous": {
     "dev": 269.56,
@@ -763,21 +763,21 @@ const productStats = {
 };
 
 const workTypeStats = {
-  "Support": {
-    "hrs": 185.65,
-    "count": 66
+  "Unknown": {
+    "hrs": 5477.22,
+    "count": 2114
   },
   "Meeting": {
-    "hrs": 1194.68,
-    "count": 1090
+    "hrs": 1199.96,
+    "count": 1097
   },
-  "Unknown": {
-    "hrs": 5410.95,
-    "count": 2095
+  "Support": {
+    "hrs": 187.15,
+    "count": 67
   },
   "Feature": {
-    "hrs": 208.6,
-    "count": 53
+    "hrs": 210.6,
+    "count": 54
   },
   "Bug Fix": {
     "hrs": 331.53,
@@ -1548,7 +1548,7 @@ const dailyData = [
   },
   {
     "d": "Jul 31",
-    "dev": 6.1,
+    "dev": 14.1,
     "mtg": 0
   },
   {
@@ -1563,53 +1563,47 @@ const dailyData = [
   },
   {
     "d": "Aug 3",
-    "dev": 58.97,
+    "dev": 66.97,
     "mtg": 4.5
   },
   {
     "d": "Aug 4",
-    "dev": 1.68,
-    "mtg": 1.29
+    "dev": 52.72,
+    "mtg": 5.29
+  },
+  {
+    "d": "Aug 5",
+    "dev": 2.73,
+    "mtg": 1.28
   }
 ];
 
 // Full user dataset – live from Clockify API · March 2026
 // 24 members · 827 entries
 const USERS = {
-  "mostafa.omran": {
-    "dev": 156.6,
-    "mtg": 49.43,
-    "total": 206.03,
+  "Menna Ayman": {
+    "dev": 111.94,
+    "mtg": 0,
+    "total": 111.94,
     "full": false,
     "c": {
-      "KFH": 73.01,
-      "Fotopia": 126.77,
-      "Internal": 6.25
+      "Fotopia": 111.94
     },
     "p": {
-      "KFH": 73.01,
-      "Fotopia": 18.02,
-      "FotoCapture V6.7": 19.17,
-      "FotoCapture V6.6": 22.5,
-      "FotoCapture": 57.33,
-      "Shj HR": 0.5,
-      "Miscellaneous": 15.5
+      "R&D": 111.94
     },
     "w": {
-      "Support": 9,
-      "Meeting": 49.43,
-      "Unknown": 145.6,
-      "Bug Fix": 2
+      "Unknown": 111.94
     }
   },
   "Omar Alaa Elnahass": {
-    "dev": 618.29,
-    "mtg": 63.75,
-    "total": 682.04,
+    "dev": 627.87,
+    "mtg": 64.53,
+    "total": 692.4,
     "full": false,
     "c": {
-      "Fotopia": 359.87,
-      "Digitizeme": 20.09,
+      "Fotopia": 366,
+      "Digitizeme": 24.32,
       "DET": 270.55,
       "Internal": 1.12,
       "RTA": 6.49,
@@ -1617,91 +1611,98 @@ const USERS = {
       "UAQ": 7.28
     },
     "p": {
-      "Fotopia IDP": 205.72,
-      "Fotofind": 76.5,
+      "Fotopia IDP": 206.5,
+      "Fotofind": 86.09,
       "Fototracker": 270.55,
       "FotoCapture": 129.21,
       "Fotopia": 0.05
     },
     "w": {
-      "Meeting": 63.75,
-      "Unknown": 517.4,
+      "Meeting": 64.53,
+      "Unknown": 526.98,
       "Bug Fix": 45.54,
       "Feature": 37.89,
       "Support": 17.45
     }
   },
-  "i-nancy.amr": {
-    "dev": 327.31,
-    "mtg": 28.05,
-    "total": 355.35,
+  "mostafa.omran": {
+    "dev": 162.43,
+    "mtg": 49.93,
+    "total": 212.36,
     "full": false,
     "c": {
-      "Fotopia": 324.89,
-      "Digitizeme": 30.47
+      "Fotopia": 131.6,
+      "KFH": 74.51,
+      "Internal": 6.25
     },
     "p": {
-      "Fotofind AI": 139.84,
+      "FotoCapture V6.7": 19.67,
+      "Fotopia IDP": 2,
+      "FotoCapture V6.6": 24,
+      "KFH": 74.51,
+      "FotoCapture": 58.17,
+      "Fotopia": 18.02,
+      "Shj HR": 0.5,
+      "Miscellaneous": 15.5
+    },
+    "w": {
+      "Meeting": 49.93,
+      "Unknown": 149.93,
+      "Support": 10.5,
+      "Bug Fix": 2
+    }
+  },
+  "i-nancy.amr": {
+    "dev": 338.75,
+    "mtg": 29.55,
+    "total": 368.3,
+    "full": false,
+    "c": {
+      "Fotopia": 336.83,
+      "Digitizeme": 31.47
+    },
+    "p": {
+      "Fotofind AI": 152.78,
       "R&D": 141.75,
       "Fotopia": 73.76
     },
     "w": {
-      "Unknown": 324.04,
-      "Meeting": 28.05,
+      "Unknown": 335.48,
+      "Meeting": 29.55,
       "Bug Fix": 1.27,
       "Support": 2
     }
   },
   "Mohammed Yasser": {
-    "dev": 323.13,
+    "dev": 327.21,
     "mtg": 19.48,
-    "total": 342.61,
+    "total": 346.69,
     "full": false,
     "c": {
-      "Fotopia": 330.65,
+      "Fotopia": 334.73,
       "Internal": 11.96
     },
     "p": {
-      "Foto Gnize V2": 84,
+      "Foto Gnize V2": 88.08,
       "R&D": 183.58,
       "Fotopia": 75.03
     },
     "w": {
-      "Unknown": 264.18,
+      "Unknown": 268.26,
       "Feature": 9.91,
       "Meeting": 19.48,
       "Bug Fix": 44.74,
       "Support": 4.3
     }
   },
-  "I-AbdulRahman.Saeed": {
-    "dev": 264.94,
-    "mtg": 98.15,
-    "total": 363.08,
-    "full": false,
-    "c": {
-      "Fotopia": 340.33,
-      "Internal": 22.75
-    },
-    "p": {
-      "R&D": 46.2,
-      "Fotopia": 316.89
-    },
-    "w": {
-      "Unknown": 235.37,
-      "Meeting": 98.15,
-      "Feature": 18.25,
-      "Bug Fix": 11.32
-    }
-  },
   "Daniel Lewis": {
-    "dev": 483.92,
-    "mtg": 163.67,
-    "total": 647.58,
+    "dev": 486.92,
+    "mtg": 166.17,
+    "total": 653.08,
     "full": true,
     "c": {
-      "Fotopia": 518.92,
-      "ENEO": 45,
+      "Fotopia": 523.42,
+      "ENEO": 46,
       "RTA": 3.25,
       "KFH": 22.5,
       "Internal": 18,
@@ -1710,10 +1711,10 @@ const USERS = {
       "Digitizeme": 3
     },
     "p": {
-      "FotoCapture V6.7": 335.08,
+      "FotoCapture V6.7": 339.08,
+      "FotoCapture V6.6": 119.17,
+      "FotoCapture": 128.25,
       "Shj HR": 1.5,
-      "FotoCapture": 127.75,
-      "FotoCapture V6.6": 118.17,
       "Miscellaneous": 9.08,
       "KFH": 21.5,
       "Fotoverifai": 10.75,
@@ -1724,26 +1725,48 @@ const USERS = {
       "Fotocapture Testing": 0.5
     },
     "w": {
-      "Feature": 31.5,
-      "Meeting": 163.67,
-      "Unknown": 361.33,
+      "Meeting": 166.17,
+      "Feature": 33.5,
+      "Unknown": 362.33,
       "Bug Fix": 88.58,
       "Support": 2.5
     }
   },
-  "Menna Ayman": {
-    "dev": 105.27,
-    "mtg": 0,
-    "total": 105.27,
+  "I-AbdulRahman.Saeed": {
+    "dev": 270.1,
+    "mtg": 98.15,
+    "total": 368.25,
     "full": false,
     "c": {
-      "Fotopia": 105.27
+      "Fotopia": 345.5,
+      "Internal": 22.75
     },
     "p": {
-      "R&D": 105.27
+      "R&D": 51.37,
+      "Fotopia": 316.89
     },
     "w": {
-      "Unknown": 105.27
+      "Unknown": 240.54,
+      "Meeting": 98.15,
+      "Feature": 18.25,
+      "Bug Fix": 11.32
+    }
+  },
+  "Aws Mohammed": {
+    "dev": 94.54,
+    "mtg": 0,
+    "total": 94.54,
+    "full": false,
+    "c": {
+      "RTA": 89.97,
+      "Fotopia": 4.57
+    },
+    "p": {
+      "RTA": 89.97,
+      "FotoCapture": 4.57
+    },
+    "w": {
+      "Unknown": 94.54
     }
   },
   "Mosa Abdulaziz Morgan": {
@@ -1759,23 +1782,6 @@ const USERS = {
     },
     "w": {
       "Unknown": 116.79
-    }
-  },
-  "Aws Mohammed": {
-    "dev": 70.54,
-    "mtg": 0,
-    "total": 70.54,
-    "full": false,
-    "c": {
-      "RTA": 65.97,
-      "Fotopia": 4.57
-    },
-    "p": {
-      "RTA": 65.97,
-      "FotoCapture": 4.57
-    },
-    "w": {
-      "Unknown": 70.54
     }
   },
   "Ali Murtaza": {
@@ -2220,7 +2226,7 @@ const CAP_BASE = {
 
 // ── Dashboard date boundaries (ISO strings matching dailyData month) ──────
 const DASH_START = '2026-03-01';
-const DASH_END   = '2026-08-04';
+const DASH_END   = '2026-08-05';
 
 // Enrich dailyData with ISO dates so the date filter can compare strings
 (function enrichDailyIso(){
